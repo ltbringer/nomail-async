@@ -36,10 +36,6 @@ primary_region = 'lhr'
   KAFKA_CFG_CONTROLLER_QUORUM_VOTERS='0@kafka-server:9093'
   KAFKA_CFG_CONTROLLER_LISTENER_NAMES='CONTROLLER'
 
-# --name nomail-async 
-# --hostname kafka-server 
-# -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-server:9093 -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER ltbringer/nomail-async
-
 [[mounts]]
   source = 'nomail_async_vol'
   destination = '/var/lib/kafka/data'
