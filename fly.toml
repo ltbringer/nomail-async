@@ -1,46 +1,52 @@
+# fly.toml app configuration file generated for nomail-async on 2024-07-28T20:32:26+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'nomail-async'
 primary_region = 'lhr'
 
 [build]
   dockerfile = './Dockerfile'
 
-[[vm]]
-  memory = '2gb'
-  cpu_kind = 'shared'
-  cpus = 1
-
-[[restart]]
-  policy = "on-failure"
-  retries = 1
-  processes = ["app"]
+[env]
+  RABBITMQ_DEFAULT_USER = 'myuser'
+  RABBITMQ_LOG_BASE = '/data/rabbitmq/log'
+  RABBITMQ_MNESIA_DIR = '/data/rabbitmq/mnesia'
 
 [[mounts]]
   source = 'nomail_async_vol'
   destination = '/data'
 
 [[services]]
-  protocol = "tcp"
+  protocol = 'tcp'
   internal_port = 5672
+  ports = []
 
   [[services.tcp_checks]]
-    interval = "15s"
-    timeout = "1m0s"
-    grace_period = "1s"
+    interval = '15s'
+    timeout = '1m0s'
+    grace_period = '1s'
 
 [[services]]
-  protocol = "tcp"
+  protocol = 'tcp'
   internal_port = 15672
 
   [[services.ports]]
     port = 15672
-    handlers = ["tls", "http"]
+    handlers = ['tls', 'http']
 
   [[services.tcp_checks]]
-    interval = "15s"
-    timeout = "1m0s"
-    grace_period = "1s"
+    interval = '15s'
+    timeout = '1m0s'
+    grace_period = '1s'
 
-[env]
-  RABBITMQ_DEFAULT_USER = "myuser"
-  # RABBITMQ_MNESIA_DIR = "/data/rabbitmq/mnesia"
-  # RABBITMQ_LOG_BASE = "/data/rabbitmq/log"
+[[restart]]
+  policy = 'on-failure'
+  retries = 1
+  processes = ['app']
+
+[[vm]]
+  memory = '2gb'
+  cpu_kind = 'shared'
+  cpus = 1
