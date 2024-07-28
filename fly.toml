@@ -22,6 +22,10 @@ primary_region = 'lhr'
   cpu_kind = 'shared'
   cpus = 1
 
+[[restart]]
+  policy = "on-failure"
+  retries = 2
+  processes = ["app"]
 
 [env]
   KAFKA_LOG_DIRS = '/var/lib/kafka/data'
@@ -29,15 +33,3 @@ primary_region = 'lhr'
 [[mounts]]
   source = 'nomail_async_vol'
   destination = '/var/lib/kafka/data'
-
-[[services]]
-  protocol = 'tcp'
-  internal_port = 9092
-
-  [[services.ports]]
-    port = 9092
-
-  [[services.tcp_checks]]
-    interval = '10s'
-    timeout = '2s'
-    grace_period = '1m0s'
