@@ -1,4 +1,4 @@
-FROM bitnami/kafka:3.6.2
+FROM bitnami/kafka:3.7.1
 
 ENTRYPOINT [ "/opt/bitnami/scripts/kafka/entrypoint.sh" ]
 

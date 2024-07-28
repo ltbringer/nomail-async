@@ -28,7 +28,6 @@ primary_region = 'lhr'
   processes = ["app"]
 
 [env]
-  KAFKA_LOG_DIRS = '/var/lib/kafka/data'
   KAFKA_CFG_NODE_ID = '0'
   KAFKA_CFG_PROCESS_ROLES = 'controller,broker'
   KAFKA_CFG_LISTENERS = 'PLAINTEXT://:9092,CONTROLLER://:9093'
