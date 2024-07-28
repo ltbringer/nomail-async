@@ -38,4 +38,4 @@ primary_region = 'lhr'
 
 [[mounts]]
   source = 'nomail_async_vol'
-  destination = '/opt/bitnami/kafka'
+  destination = '/bitnami/kafka/data'
