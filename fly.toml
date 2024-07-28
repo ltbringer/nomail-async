@@ -9,14 +9,6 @@ primary_region = 'lhr'
 [build]
   dockerfile = './Dockerfile'
 
-[http_service]
-  internal_port = 9092
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
-
 [[vm]]
   memory = '2gb'
   cpu_kind = 'shared'
@@ -27,24 +19,34 @@ primary_region = 'lhr'
   retries = 1
   processes = ["app"]
 
-[env]
-  HOSTNAME = "broker"
-  KAFKA_NODE_ID = '1'
-  KAFKA_LISTENER_SECURITY_PROTOCOL_MAP = 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-  KAFKA_ADVERTISED_LISTENERS = 'PLAINTEXT_HOST://localhost:9092,PLAINTEXT://broker:19092'
-  KAFKA_PROCESS_ROLES = 'broker,controller'
-  KAFKA_CONTROLLER_QUORUM_VOTERS = '1@broker:29093'
-  KAFKA_LISTENERS = 'CONTROLLER://:29093,PLAINTEXT_HOST://:9092,PLAINTEXT://:19092'
-  KAFKA_INTER_BROKER_LISTENER_NAME = 'PLAINTEXT'
-  KAFKA_CONTROLLER_LISTENER_NAMES = 'CONTROLLER'
-  CLUSTER_ID = '4L6g3nShT-eMCtK--X86sw'
-  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR = '1'
-  KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS = '0'
-  KAFKA_TRANSACTION_STATE_LOG_MIN_ISR = '1'
-  KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR = '1'
-  KAFKA_LOG_DIRS = '/tmp/kraft-combined-logs'
-
 
 [[mounts]]
   source = 'nomail_async_vol'
-  destination = '/data/kafka/logs'
+  destination = '/data'
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 5672
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "1m0s"
+    grace_period = "1s"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 15672
+
+  [[services.ports]]
+    port = 15672
+    handlers = ["tls", "http"]
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "1m0s"
+    grace_period = "1s"
+
+[env]
+  RABBITMQ_DEFAULT_USER = "myuser"
+  RABBITMQ_MNESIA_DIR = "/data/rabbitmq/mnesia"
+  RABBITMQ_LOG_BASE = "/data/rabbitmq/log"

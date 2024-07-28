@@ -1,7 +1,4 @@
-FROM apache/kafka:3.8.0
+FROM rabbitmq:3.13.6-management-alpine
 
-
-USER appuser
-
-ENTRYPOINT ["/__cacert_entrypoint.sh"]
-CMD ["/etc/kafka/docker/run"]
+COPY ./prod.conf /etc/rabbitmq/rabbitmq.conf
+RUN rabbitmq-plugins enable rabbitmq_management
