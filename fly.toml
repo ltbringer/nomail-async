@@ -1,0 +1,28 @@
+app = "nomail-async" # Replace with your desired app name
+
+[build]
+  dockerfile = "./Dockerfile"
+
+[env]
+  # Define environment variables if needed
+  KAFKA_LOG_DIRS = "/var/lib/kafka/data"
+
+[mounts]
+  source = "kafka_data"
+  destination = "/var/lib/kafka/data"
+
+[deploy]
+  release_command = "sh -c 'bin/kafka-storage.sh format -t $(uuidgen) -c config/server.properties'"
+
+[[services]]
+  internal_port = 9092
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 9092
+
+  [[services.tcp_checks]]
+    interval = "10s"
+    timeout = "2s"
+    grace_period = "1m"
+    restart_limit = 0
