@@ -24,7 +24,7 @@ primary_region = 'lhr'
 
 [[restart]]
   policy = "on-failure"
-  retries = 2
+  retries = 1
   processes = ["app"]
 
 [env]
