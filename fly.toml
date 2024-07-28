@@ -11,8 +11,8 @@ primary_region = 'lhr'
 
 [env]
   RABBITMQ_DEFAULT_USER = 'myuser'
-  # RABBITMQ_LOG_BASE = '/data/rabbitmq/log'
-  # RABBITMQ_MNESIA_DIR = '/data/rabbitmq/mnesia'
+  RABBITMQ_LOG_BASE = '/data/rabbitmq/log'
+  RABBITMQ_MNESIA_DIR = '/data/rabbitmq/mnesia'
 
 [[mounts]]
   source = 'nomail_async_vol'
