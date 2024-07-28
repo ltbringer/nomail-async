@@ -27,7 +27,7 @@ primary_region = 'lhr'
   KAFKA_LOG_DIRS = '/var/lib/kafka/data'
 
 [[mounts]]
-  source = 'kafka_data'
+  source = 'nomail_async_vol'
   destination = '/var/lib/kafka/data'
 
 [[services]]
