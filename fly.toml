@@ -14,9 +14,9 @@ primary_region = 'lhr'
   retries = 1
   processes = ["app"]
 
-[[mounts]]
-  source = 'nomail_async_vol'
-  destination = '/data'
+# [[mounts]]
+#   source = 'nomail_async_vol'
+#   destination = '/data'
 
 [[services]]
   protocol = "tcp"
